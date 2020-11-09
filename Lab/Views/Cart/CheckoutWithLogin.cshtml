@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewData["Title"] = "CheckoutWithLogin";
+}
+@model AppUser
+<div class="row">
+    <div class="col-6">
+        <h2>Account using: @User.Identity.Name</h2>
+        <form asp-controller="Cart" asp-action="CheckoutWithLogin" method="post">
+            <div class="form-group">
+                <label asp-for="Id"></label>
+                <input asp-for="Id" class="form-control" hidden />
+                <label asp-for="UserName"></label>
+                <input asp-for="UserName" class="form-control" disabled />
+                <label asp-for="Address"></label>
+                <input asp-for="Address" class="form-control" disabled />
+                <label asp-for="PhoneNumber"></label>
+                <input asp-for="PhoneNumber" class="form-control" disabled />
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" disabled />
+            </div>
+            @if (Model.Address == null || Model.PhoneNumber == null)
+            {
+
+                <a asp-controller="Manager" asp-action="UpdateInformation" asp-route-name="@User.Identity.Name">please confirm full information your account and back there.</a>
+            }
+            else
+            {
+                <button type="submit" class="btn btn-primary">Confirm</button>
+            }
+            
+        </form>
+    </div>
+    <div class="col-6">
+        <table class="table-bordered table-hover table">
+            @if (ViewBag.cart != null)
+            {
+                <tr>
+                    <th>Numerical order</th>
+                    <th>Product name</th>
+                    <th>Quantity</th>
+                    <th>Sub total</th>
+                </tr>
+                int i = 1;
+                @foreach (var item in ViewBag.cart)
+                {
+                    <tr>
+                        <td>@(i++)</td>
+                        <td>@item.Product.ProductName</td>
+                        <td>@item.Quantity</td>
+                        <td>@(item.Product.ProductPrice * item.Quantity)</td>
+                    </tr>
+                }
+                <tr>
+                    <td align="left" colspan="3">Sum</td>
+                    <td>
+                        @ViewBag.total
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+
+

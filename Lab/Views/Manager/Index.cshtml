@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<hr />
+<form asp-action="Generate" method="post">
+    <input type="text" name="productId" value="@ViewBag.productId" />
+    <input type="submit" value="get code (QR & bar code)" />
+</form>
+<hr />
+<script src="~/ckeditor/ckeditor.js"></script>
+<div class="row">
+    <div class="col-md-12">
+        <h2>Create a PDF File</h2>
+        <form asp-action="index" method="post">
+            <textarea name="editor1" id="editor1" rows="80" cols="80">
+
+          
+            @if (ViewBag.productId != null)
+            {
+                <p><b><i>Thank for shopping in my store.</i></b></p>
+                <hr />
+                <qrcode content="@ViewBag.productId" width="200" height="200" />
+
+                <barcode content="@ViewBag.productId" width="200" height="100" />
+
+            }
+            </textarea>
+            <br />
+            <input type="submit" class="btn btn-success" value="download PDF" />
+
+        </form>
+    </div>
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+        CKEDITOR.replace('editor1');
+    </script>
+</div>

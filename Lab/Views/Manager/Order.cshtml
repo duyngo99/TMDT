@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewData["Title"] = "Order";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@model List<Order>
+
+<h1>Order</h1>
+<hr />
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td>Address</td>
+            <td>PhoneNumber</td>
+            <td>Email</td>
+            <td>OrderDate</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Address</td>
+            <td>@item.PhoneNumber</td>
+            <td>@item.Email</td>
+            <td>@item.OrderDate</td>
+            <td><a class="btn btn-primary" asp-action="OrderDetail" asp-controller="Manager" asp-route-id="@item.OrderId">Detail</a></td>
+            @if (User.IsInRole("admin"))
+            {
+                <td>
+                    <a class="btn btn-outline-danger" asp-controller="Manager" asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
+                </td>
+            }
+
+
+
+
+
+        </tr>
+        }
+    </tbody>
+</table>
+
+

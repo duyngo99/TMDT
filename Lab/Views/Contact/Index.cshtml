@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Contact
+
+
+<h1 class="bg-primary text-white">@ViewBag.msg</h1>
+<div asp-validation-summary="All" class="text-danger"></div>
+<form method="post" enctype="multipart/form-data" asp-controller="contact" asp-action="send">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Phone"></label>
+        <input asp-for="Phone" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Address"></label>
+        <input asp-for="Address" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Subject"></label>
+        <input asp-for="Subject" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Content"></label>
+        <textarea asp-for="Content" rows="5" cols="20" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label>Attachments: </label>
+        <input type="file" name="attachments" multiple="multiple" />
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Send</button>
+    </div>    
+</form>

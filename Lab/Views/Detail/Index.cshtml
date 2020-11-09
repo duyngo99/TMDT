@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+@model Product
+<div>
+    <h4>Product</h4>
+    <hr />
+    <div class="row">
+        <div class="col-sm-6">
+            <dl class="row">
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.ProductName)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.ProductName)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.ProductPrice)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.ProductPrice)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Descriptions)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Descriptions)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model =>model.Category.CategoryName)
+                </dt>
+                <dd class="col-sm-8">
+                    @ViewBag.Category
+                </dd>
+            </dl>
+        </div>
+        <div class="col-sm-4">
+            <img src="~/images/@Model.ProductImage" width="100" height="100" atl="image" />
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-controller="Home" asp-action="Index">Back to List</a>
+</div>
+

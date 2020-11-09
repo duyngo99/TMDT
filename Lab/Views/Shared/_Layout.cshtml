@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Lab</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/js/index.js"></script>
+    
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark bg-primary mb-3">
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+
+                    @if (User.IsInRole("manager"))
+                    {
+                        <li class="nav-item active">
+                            <a class="nav-link" asp-area="" asp-controller="Manager" asp-action="Index">Manager</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" asp-area="" asp-controller="Manager" asp-action="Order">Order</a>
+                        </li>
+                    }
+                    else if (User.IsInRole("admin"))
+                    {
+                        <li class="nav-item active">
+                            <a class="nav-link" asp-area="admin" asp-controller="home" asp-action="index">Admin Page</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item active">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Type
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" asp-controller="home" asp-action="Iphone" asp-route-type="iphone">Iphone</a>
+                                <a class="dropdown-item" asp-controller="home" asp-action="Samsung" asp-route-type="samsung">Samsung</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Price
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" asp-controller="home" asp-action="DescendingPrices">descending prices</a>
+                                <a class="dropdown-item" asp-controller="home" asp-action="AscendingPrices">ascending prices</a>
+                            </div>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" asp-controller="Cart" asp-action="Index">Cart</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" asp-controller="contact" asp-action="Index">Contact Us</a>
+                        </li>
+                    }
+
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("manager"))
+                    {
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle text-light" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Manager @User.Identity.Name
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item text-info" asp-controller="Manager" asp-action="Update" asp-route-name="@User.Identity.Name">Change Password</a>
+                                <hr />
+                                <a class="dropdown-item text-danger" asp-controller="Account" asp-action="Logout">Logout</a>
+                            </div>
+                        </li>
+                    }
+                    else if (User.Identity.IsAuthenticated)
+                       {
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle text-light" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Hello @User.Identity.Name
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item text-info" asp-controller="Manager" asp-action="UpdateInformation" asp-route-name="@User.Identity.Name">Update Information</a>
+                                <a class="dropdown-item text-info" asp-controller="Manager" asp-action="Update" asp-route-name="@User.Identity.Name">Change Password</a>
+                                <a class="dropdown-item text-info" asp-controller="Manager" asp-action="Ordered" asp-route-name="@User.Identity.Name">Follow Ordered</a>
+                                <hr />
+                                <a class="dropdown-item text-danger" asp-controller="Account" asp-action="Logout">Logout</a>
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item active">
+                            <a class="nav-link glyphicon glyphicon-user" asp-controller="Account" asp-action="Login">Login</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" asp-controller="Account" asp-action="Create">Register</a>
+                        </li>
+                    }
+
+
+
+
+                    <!-- login -->
+
+
+                </ul>
+                <form asp-controller="home" asp-action="find" class="form-inline my-2 my-lg-0">
+                    <input name="pid" class="form-control mr-sm-2" type="search" placeholder="search name product" aria-label="Search">
+                    <button class="btn btn-outline-light" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+
+            
+
+                
+            </div>
+        </main>
+    </div>
+    <footer class="py-3 bg-primary">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
+        </div>
+    </footer>
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+    
+
+</body>
+</html>

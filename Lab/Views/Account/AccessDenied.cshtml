@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewData["Title"] = "AccessDenied";
+}
+<h2 class="bg-danger mb-1 p-2 text-white">Access Denied</h2>
+@if (User.IsInRole("admin"))
+{
+    <a asp-area="admin" asp-controller="home" asp-action="index" class="btn btn-primary">Ok</a>
+
+}
+else
+{
+<a asp-action="Index" asp-controller="Home" class="btn btn-primary">OK</a>
+}
+

@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewData["Title"] = "Ordered";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<OrderDetail>
+
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <td>Product Name</td>
+            <td>Quantity</td>
+            <td>Order Time</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Product.ProductName</td>
+                <td>@item.Quantity</td>
+                <td>@item.Order.OrderDate</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-controller="Home" asp-action="Index">click to back</a>

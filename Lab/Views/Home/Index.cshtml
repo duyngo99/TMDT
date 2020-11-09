@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+    
+
+@model List<Product>
+
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card h-100">
+                <img class="card-img-top"
+                     src="~/images/@item.ProductImage" alt="">
+                <div class="card-body">
+                    <h4 class="cardtitle">
+                        @item.ProductName
+                    </h4>
+                    <p class="card-text">@item.Descriptions</p><p style="color:red;"><i><b>@item.ProductPrice$ (dollar)</b></i></p>
+                </div>
+                <div class="card-footer">
+                    <a asp-controller="Detail" asp-action="Index" asp-route-id="@item.ProductId" asp-route-name="@item.ProductName" class="btn btn-primary">Details</a>
+                    <a asp-controller="Cart" asp-action="Buy" asp-route-id="@item.ProductId" class="btn btn-info">Buy now</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

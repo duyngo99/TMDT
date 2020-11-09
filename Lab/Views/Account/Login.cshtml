@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model LoginViewModel
+
+    <div class="row">
+        <div class="col-md-6">
+            <h1 class="bg-primary text-white">Local Account Login</h1>
+            <hr />
+            <div class="text-danger" asp-validation-summary="All"></div>
+
+
+            <form asp-controller="Account" asp-action="Login" asp-route-returnUrl="@ViewData["returnUrl"]">
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" />
+                </div>
+                <button class="btn btn-primary" type="submit">Login</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <h1 class="bg-primary text-white">External Login</h1>
+            <hr />
+            @{
+                if (Model.ExternalLogins.Count == 0)
+                {
+                    <div>No external logins configured</div>
+                }
+                else
+                {
+                    <form method="post" asp-action="ExternalLogin" asp-route-returnUrl="@ViewData["returnUrl"]">
+                        <div>
+                            @foreach (var provider in Model.ExternalLogins)
+                            {
+                                <button type="submit" class="btn btn-outline-primary"
+                                        name="provider" value="@provider.Name"
+                                        title="Login using your @provider.DisplayName account">
+                                    @provider.DisplayName
+                                </button>
+                            }
+                        </div>
+                    </form>
+                }
+            }
+        </div>
+    </div>
+    
+
